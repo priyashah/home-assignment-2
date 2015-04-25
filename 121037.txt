@@ -1,0 +1,67 @@
+HOME ASSSIGNMENT
+
+3)
+Everytime it gives a different value, as new iID is been creating
+The program returns the process ID of the child process to the parent process.
+
+4)
+1.The control blocks for processes are larger than for threads , so the amount of information to move during the thread switching is less than for process context switching.
+
+2. The major reason is that the memory management is much simpler for threads than for processes.
+
+3. Threads do not have to do accounting, so keeping the thread control block consistent is much faster.
+
+4. Threads share files, so when mode switch happens in threads, these information stay the same and threads do not have to worry about it and that makes the mode switch much faster. 
+
+5)
+1. Thread switching does not require kernel mode privileges because all of the thread management data structures are within the user address space of a single process. Therefore, the process does not switch to the kernel mode to do thread management in return saving the overhead.
+ 
+2. Scheduling can be application specific. One application may benefit most from a simple round-robin scheduling algorithm, while another might benefit from a priority-based scheduling algorithm. The scheduling algorithm can be tailored to the application without disturbing the underlying OS scheduler.
+ 
+3. ULTs can run on any OS. No changes are required to the underlying kernel to support ULTs. The threads library is a set of application-level functions shared by all applications.
+
+6)
+1. In a typical OS, many system calls are blocking. As a result, when a ULT executes a system call, not only is that thread blocked, but also all of the threads within the process are blocked.
+ 
+2. In a pure ULT strategy, a multithreaded application cannot take advantage of multiprocessing. A kernel assigns one process to only one processor at a time. Therefore, only a single thread within a process can execute at a time. In effect, we have application-level multiprogra While this multiprogramming can result in a significant speedup of the application, there are applications that would benefit from the ability to execute portions of code simultaneously.thin a single process.
+
+7)
+User process functions separately from Kernel processes. That is, thread structure of a process is not visible to the OS/kernel, which schedules on the basis of processes. The Book says:
+" The kernel continues to schedule the process as a unit and assigns a single execution state
+(Ready, Running, Blocked, etc.) to that process "
+Hence once one thread is blocked, the whole process is blocked and consequently all threads in that process are blocked.
+
+8)
+As in this environment we have one to one mapping, context switching will be easier. Though multi-progamming does not play a role in this system, but multi-threading will become faster as they do not have to wait for other threads.
+
+9)
+Yes, the thread will also terminate if the process it is running in terminates. The thread is dependent upon the processes it is running. If the processes die the thread dies.
+
+10)
+Competing processes -They compete for resources. For example, two independent applications may both want to access the same disk or file or printer. The OS must regulate these accesses.
+ 
+Cooperating Processes - Share resources. May or may not be aware of each other. Some processes are designed to cooperate together (jointly) on the same activity and share resources. They may also be aware of each other by process id.
+
+11)
+Strong semaphores specify the order in which processes are removed from the queue, which guarantees avoiding starvation. Weak semaphores do not specify the order in which processes are removed from the queue.
+
+12)
+The monitor is a programming-language construct that provides equivalent functionality to that of semaphores and that is easier to control. A monitor is a synchronization construct that allows threads to have both mutual exclusion and the ability to wait (block) for a certain condition to become true. Monitors also have a mechanism for signalling other threads that their condition has been met.
+
+13)
+Blocking send, blocking receive: Both the sender and receiver are blocked until the message is delivered; this is sometimes referred to as a rendezvous. This combination allows for tight synchronization between processes.
+
+Nonblocking send, blocking receive: Although the sender may continue on, the receiver is blocked until the requested message arrives.This is probably the most useful combination. It allows a process to send one or more messages to a variety of destinations as quickly as possible. A process that must receive a message before it can do useful work needs to be blocked until such a message arrives. An example is a server process that exists to provide a service or resource to other processes.
+
+Nonblocking send, nonblocking receive: Neither party is required to wait.
+
+14)
+Yes, because busy-waiting consumes useless instruction cycles. However, in a particular case, if a process comes to a point in the program where it must wait for a condition to be satisfied, and if that condition is already satisfied,
+then the busy-wait will find that out immediately, whereas, the blocking wait will consume OS resources switching out of and back into the process.
+
+15)
+No, we cannot substitute one set for the other without altering the meaning of the program.
+As the first program first checks the value of semaphore then updates it.
+While second program updates the value of semaphore then checks it. This can give wrong output in terms of wait time. 
+
+16)
